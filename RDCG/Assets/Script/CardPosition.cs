@@ -43,28 +43,29 @@ public class CardPosition : MonoBehaviour
     void Update()
     {
         // 키보드 입력을 감지하여 해당 위치를 매겨변수로 사용
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1)) //키보드 숫자1누를시
         {
             UseCardAtPosition(cardPosition1.transform.position);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) //키보드 숫자2누를시
         {
             UseCardAtPosition(cardPosition2.transform.position);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) //키보드 숫자3누를시
         {
             UseCardAtPosition(cardPosition3.transform.position);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) //키보드 숫자4누를시
         {
             UseCardAtPosition(cardPosition4.transform.position);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        else if (Input.GetKeyDown(KeyCode.Alpha5)) //키보드 숫자5누를시
         {
             UseCardAtPosition(cardPosition5.transform.position);
         }
     }
 
+    // 카드를 사용할때 실행될 함수
     void UseCardAtPosition(Vector3 position)
     {
         // 일정 거리 내에 있는지 확인하기 위한 임계값, 내 맘대로설정 값 바꾸어도 상관없음
@@ -90,6 +91,7 @@ public class CardPosition : MonoBehaviour
         }
     }
 
+    // 새로운 카드 생성 이너미레이터, 카드를 사용할때 실행되는 함수안에서 실행
     IEnumerator SpawnNewCard(Vector3 position)
     {
         // 일정 시간 동안 대기 시간바꾸어도 상관없음
