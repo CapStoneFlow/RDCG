@@ -17,18 +17,19 @@ public enum unitCode{
         public int nowHP{get; set;}//현재 hp
         public int maxAtkDmg{get; set;}//공격력(방어력으로도 사용)최대
         public int minAtkDmg{get; set;}//공격력(=방어력)최소
-        public int Speed{get;set;}//스피드(행동력)
+        
 
         public enemyStats(){
 
         }
-        public enemyStats(unitCode unitcode, string name, int maxHP, int nowHP, int atkDmg, int Speed){
+        public enemyStats(unitCode unitcode, string name, int maxHP, int nowHP, int minAtkDmg, int maxAtkDmg){
             this.unitcode = unitcode;
             this.name = name;
             this.maxHP = maxHP;
             this.nowHP = nowHP;
-            this.atkDmg = atkDmg;
-            this.Speed = Speed;
+            this.maxAtkDmg = maxAtkDmg;
+            this.minAtkDmg = minAtkDmg;
+            
         }
 
 
@@ -37,15 +38,15 @@ public enum unitCode{
         enemyStats status = null;
         switch(unitcode){
             case unitCode.enemy1:
-                status = new enemyStats(unitcode,"적1",10, 10, 1,3, 5);
+                status = new enemyStats(unitcode,"적1",10, 10, 1,3);
                 break;
 
             case unitCode.enemy2:
-                status = new enemyStats(unitcode,"적2",20, 20, 4,7, 6);
+                status = new enemyStats(unitcode,"적2",20, 20, 4,7);
                 break;
 
             case unitCode.boss:
-                status = new enemyStats(unitcode,"보스",50, 50, 5,10, 2);
+                status = new enemyStats(unitcode,"보스",50, 50, 5,10);
                 break;
         }
         return status;
