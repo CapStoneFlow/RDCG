@@ -136,6 +136,7 @@ public class cardPosition : MonoBehaviour
             }
         }
     }
+
     // 카드위치를 매개변수로 받아 리스트에서 랜덤 카드를 생성하는 함수
     IEnumerator SpawnNewCard(Vector3 position)
     {
