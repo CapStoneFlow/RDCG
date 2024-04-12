@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private int rannum = 0;   // 카드의 운적인 요소를 정하기 위해 사용하는 변수
     private int mulnum = 0;  // 카드효과 배로 데미지들어가는것을 위해 사용하는 변수
     private int cardDamage = 0; // 카드 value값 받아오기위해 사용하는 변수
+    private int cardUse = 0; // 카드 사용 횟수에따라 확률 즉사 구현하기위해 사용하는 변수
 
     public Enemy enemy; // 적 스크립트 호출
 
@@ -122,6 +123,9 @@ public class Player : MonoBehaviour
                 {
                     // 카드 코스트만큼 차감
                     playerCost -= cardInfo.cardCost;
+
+                    //카드 사용한 횟수 1 증가
+                    cardUse++;
 
                     // 카드효과 불러와 적용하는 함수 호출
                     CardEffect(cardInfo);  
@@ -361,6 +365,21 @@ public class Player : MonoBehaviour
                 cardDamage *= 2;
             }
             enemy.enemyHp -= cardDamage;
+        }
+        // 6일경우 만약 카드 사용시  이 스테이지에서 사용한 카드 개수만큼 즉사 확률(ex 20개 사용할 경우 20%확률로 즉사)
+        else if ((cardInfo.cardEffect == 6))
+        {
+            // a의 0부터 100까지 랜덤값 넣음
+            int a = Random.Range(0, 101);
+            //만약 랜덤값이 카드사용횟수보다 작거나 같다면
+            if (cardUse >= a)
+            {
+                enemy.enemyHp = 0;  //적은 즉사
+            }
+            else
+            {
+                //아니라면 아무일도 없습니다.
+            }
         }
     }
 
