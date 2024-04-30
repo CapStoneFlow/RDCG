@@ -59,9 +59,6 @@ public class CardManager : MonoBehaviour
     //카드 위로 마우스를 둘때 함수
     public void CardMouseOver(CardInfo card)
     {
-
-
-
         selectCard = card;
 
         EnlargeCard(true, selectCard);

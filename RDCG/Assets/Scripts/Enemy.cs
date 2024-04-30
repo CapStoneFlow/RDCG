@@ -10,7 +10,9 @@ public class Enemy : MonoBehaviour
 {
     public float enemyHp; // 적의 현재 체력
     public float enemyMaxHp; // 적의 최대 체력
-    public static bool isEnemyDead; // 적이 죽었는지 살았는지 상태
+    public static bool isEnemyDead1; // 스테이지 1 적이 죽었는지 살았는지 상태
+    public static bool isEnemyDead2; // 스테이지 2 적이 죽었는지 살았는지 상태
+    public static bool isBossDead; // 보스가 죽었는지 살았는지 상태
 
     public Text enemyHpText; // 적의 체력을 알 수 있는 체력 텍스트
     public Text playerMoneyText; // 플레이어의 골드 텍스트
@@ -26,8 +28,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isEnemyDead = false; // 죽은 상태가 아니니 false
-        enemyMaxHp = 30; // 적의 최대 체력은 30
+        isEnemyDead1 = false; // 죽은 상태가 아니니 false
+        isEnemyDead2 = false; // 죽은 상태가 아니니 false
         enemyWarningText.enabled = false; // 적 강력한 공격 나오는 텍스트 안보이게
     }
 
@@ -49,12 +51,22 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
+    /// 적이 플레이어의 체력을 7부터 15으로 랜덤하게 데미지를 주는 함수
+    /// </summary>
+    public void EnemyAttack2()
+    {
+        enemyRandomDamage = Random.Range(7, 16); // 적은 플레이어의 체력을 랜덤적으로 7~15까지 까이게 함
+        Player.playerHp -= enemyRandomDamage; // 플레이어의 체력을 적의 랜덤 데미지만큼 까이게 함
+        Debug.Log("플레이어의 현재 체력은 " + Player.playerHp);
+    }
+
+    /// <summary>
     /// 적이 5턴일 경우 현재 체력에서 최대 체력 절반만큼 차게 하는 함수
     /// </summary>
     public void EnemyHeal()
     {
         Debug.Log("적의 체력이 회복되었습니다.");
-        enemyHp += enemyMaxHp; // 적의 체력이 MaxHp만큼 힐이 됨
+        enemyHp += 15; // 적의 체력이 15씩 힐이 됨
 
         if (enemyHp >= enemyMaxHp) // 적의 체력이 힐이 적의 최대 체력보다 높을 경우 
         {
@@ -86,14 +98,36 @@ public class Enemy : MonoBehaviour
         enemyWarningText.enabled = false; // 경고 메세지 사라지게 실행
     }
     /// <summary>
-    /// 적이 죽었을 때 플레이어에게 다음 스테이지로 가는 씬 이동 구현
+    /// 스테이지 1 적이 죽었을 때 플레이어에게 다음 스테이지로 가는 씬 이동 구현
     /// </summary>
-    public void EnemyDeath()
+    public void Stage1EnemyDeath()
     {
-        isEnemyDead = true; // 적이 죽은 상태를 true
+        isEnemyDead1 = true; // 스테이지 1 적이 죽은 상태를 true
         player.PlayerClearStage1(); // player가 Stage1을 클리어 했다는 함수 실행
-       Player.playerGainGold += Random.Range(100, 601); // 플레이어의 획득 골드를 100 ~ 600까지 랜덤으로 획득
+        Player.playerGainGold += Random.Range(500, 1001); // 플레이어의 획득 골드를 500 ~ 1000까지 랜덤으로 획득
         Player.playerCurrentGold += Player.playerGainGold; // 플레이어의 현재 골드를 플레이어의 획득 골드만큼 더함
         SceneManager.LoadScene("Stage Clear1"); // Stage Clear1 씬으로 이동
+    }
+
+    /// <summary>
+    /// 스테이지 2 적이 죽었을 때 플레이어에게 다음 스테이지로 가는 씬 이동 구현
+    /// </summary>
+    public void Stage2EnemyDeath()
+    {
+        isEnemyDead2 = true; // 스테이지 2 적이 죽은 상태를 true
+        player.PlayerClearStage2(); // player가 Stage2를 클리어 했다는 함수 실행
+        Player.playerGainGold += Random.Range(1000, 2001); // 플레이어의 획득 골드를 1000 ~ 2000까지 랜덤으로 획득
+        Player.playerCurrentGold += Player.playerGainGold; // 플레이어의 현재 골드를 플레이어의 획득 골드만큼 더함
+        SceneManager.LoadScene("Stage Clear2"); // Stage Clear2 씬으로 이동
+    }
+
+    /// <summary>
+    /// 보스가 죽었을 때 플레이어에게 다음 스테이지로 가는 씬 이동 구현
+    /// </summary>
+    public void BossEnemyDeath()
+    {
+        isBossDead = true; // 보스가 죽은 상태를 true
+        player.PlayerClearBoss(); // player가 Stage1을 클리어 했다는 함수 실행
+        SceneManager.LoadScene("Ending"); // 엔딩 씬으로 이동
     }
 }

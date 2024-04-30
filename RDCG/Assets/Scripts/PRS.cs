@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PRS
 {
-    //Ä«µå°¡ À§Ä¡ÇÒ À§Ä¡ Á¤º¸
+    //ì¹´ë“œê°€ ìœ„ì¹˜í•  ìœ„ì¹˜ ì •ë³´
     public Vector3 Pos;
     public Quaternion Rot;
     public Vector3 Scale;
     
-    //»ı¼ºÀÚ
+    //ìƒì„±ì
     public PRS(Vector3 pos, Quaternion rot, Vector3 scale)
     {
         Pos = pos;

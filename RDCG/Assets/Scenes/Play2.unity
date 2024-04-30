@@ -976,7 +976,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 892673023}
-  - component: {fileID: 892673022}
+  - component: {fileID: 892673024}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -984,26 +984,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &892673022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892673021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78dac790422a3cc4285b9ec34400f48e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnBtn: {fileID: 1215042833}
-  enemy1Turn: 0
-  enemy2Turn: 0
-  isPlayerTurn: 0
-  isEnemyTurn: 0
-  player: {fileID: 618766709}
-  enemy1: {fileID: 2053202776}
-  enemy2: {fileID: 0}
 --- !u!4 &892673023
 Transform:
   m_ObjectHideFlags: 0
@@ -1019,6 +999,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &892673024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892673021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b56ce19dc8bae746a8ad2b459dd4d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnBtn2: {fileID: 1215042833}
+  enemy2Turn: 0
+  isPlayer2Turn: 0
+  isEnemy2Turn: 0
+  player2: {fileID: 618766709}
+  enemy2: {fileID: 2053202776}
 --- !u!1 &941554275
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,9 +1392,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 892673022}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
-        m_MethodName: TurnButtonClick
+      - m_Target: {fileID: 892673024}
+        m_TargetAssemblyTypeName: Stage2TurnManager, Assembly-CSharp
+        m_MethodName: TurnButtonClick2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2165,8 +2163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8489e0ff2ac0a1047825f0702d677343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHp: 30
-  enemyMaxHp: 30
+  enemyHp: 75
+  enemyMaxHp: 75
   enemyHpText: {fileID: 123412748}
   playerMoneyText: {fileID: 0}
   enemyHpBar: {fileID: 439092260}

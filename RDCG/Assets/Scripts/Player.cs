@@ -18,14 +18,16 @@ public class Player : MonoBehaviour
     private int mulnum = 0;  // 카드효과 배로 데미지들어가는것을 위해 사용하는 변수
     private int cardDamage = 0; // 카드 value값 받아오기위해 사용하는 변수
 
-    public Enemy enemy; // 적 스크립트 호출
+    public Enemy enemy;
 
     public Text playerHpText; // 플레이어의 체력을 나타내는 텍스트 UI
     public Text playerCostText; // 플레이어의 코스트를 나타내는 텍스트 UI
     public Slider playerHpBar; // 현재 플레이어의 체력 바 UI 
 
     public bool isPlayerDead = false; // 플레이어가 죽었는지 살아있는지 상태
-    public static bool isPlayerStage1 = false; // 플레이어가 스테이지1을 깼는지 못꺴는지 알 수 있는 상태 (Static으로 나중에 버튼 활성화)
+    public static bool isPlayerStage1 = false; // 플레이어가 스테이지1을 깼는지 못꺴는지 알 수 있는 상태 (Static으로 버튼 활성화)
+    public static bool isPlayerStage2 = false; // 플레이어가 스테이지2을 깼는지 못꺴는지 알 수 있는 상태 (Static으로 버튼 활성화)
+    public static bool isPlayerBoss = false; // 플레이어가 보스를 꺴는지 못깼는지 알 수 있는 상태 (Static으로 버튼 활성화)
 
     // 카드의 고정 위치를 받아오기 위한 변수 지정
     public GameObject cardPosition1;
@@ -234,8 +236,11 @@ public class Player : MonoBehaviour
     {
         isPlayerDead = true; // 플레이어가 죽은 상태
         playerHp = playerMaxHp; // 플레이어의 체력을 플레이어의 최대 체력으로 초기화
+        playerCurrentGold = 0; // 플레이어의 현재 가지고 있는 돈을 0으로 초기화
+        playerGainGold = 0; // 플레이어의 얻는 골드를 0으로 초기화
         isPlayerStage1 = false; // 플레이어의 스테이지1 상태를 클리어 못한 것으로 초기화
-
+        isPlayerStage2 = false; // 플레이어의 스테이지2 상태를 클리어 못한 것으로 초기화
+        isPlayerBoss = false; // 플레이어의 보스 스테이지 상태를 클리어 못한 것으로 초기화
         // CurrentDeck 인스턴스가 존재하는지 확인 후 덱 초기화 함수 호출
         if (CurrentDeck.instance != null)
         {
@@ -251,9 +256,31 @@ public class Player : MonoBehaviour
     /// </summary>
     public void PlayerClearStage1()
     {
-        if (Enemy.isEnemyDead == true) // 에너미가 죽었을 때
+        if (Enemy.isEnemyDead1 == true) // 에너미가 죽었을 때
         {
             isPlayerStage1 = true; // 플레이어는 Stage1을 클리어 된 상태
+        }
+    }
+
+    /// <summary>
+    /// 현재 플레이어가 Stage2을 깬건지 알 수 있는 상태
+    /// </summary>
+    public void PlayerClearStage2()
+    {
+        if (Enemy.isEnemyDead2 == true) // 에너미가 죽었을 때
+        {
+            isPlayerStage2 = true; // 플레이어는 Stage2을 클리어 된 상태
+        }
+    }
+
+    /// <summary>
+    /// 현재 플레이어가 보스를 깬건지 알 수 있는 상태
+    /// </summary>
+    public void PlayerClearBoss()
+    {
+        if (Enemy.isBossDead == true) // 보스가 죽었을 때
+        {
+            isPlayerBoss = true; // 플레이어는 보스를 클리어 된 상태
         }
     }
 
