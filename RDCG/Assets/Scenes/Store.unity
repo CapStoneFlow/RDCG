@@ -444,9 +444,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardList:
-  - {fileID: 6564953037273492510, guid: 346e927a7c9a7794a8f5bd2ecba83d0c, type: 3}
-  - {fileID: 6564953037273492510, guid: 6c26c008e665e6847b036045d0690112, type: 3}
-  - {fileID: 6564953037273492510, guid: 97e4445482412ea4cbda3722eb1a51ec, type: 3}
+  - {fileID: 1442616334340507759, guid: ca7690f951fb06848a99d8a635216d8c, type: 3}
+  - {fileID: 7763390310517207696, guid: a578460ca78db414382e0b7b2ed0cc98, type: 3}
+  - {fileID: 6966829503295169898, guid: 42819792bc655e74ba67e8acc794618d, type: 3}
+  - {fileID: 110004141399611809, guid: 51649cfc0b7d82c46aa7f1fe7037f11d, type: 3}
+  - {fileID: 8981026062404548592, guid: 08b75f17cfb66114cb1697a70f941a01, type: 3}
+  - {fileID: 4304459420635132219, guid: 36d0b69a4aaed9f4d81fd53c0fc02f23, type: 3}
+  - {fileID: 2743755767368503338, guid: 3d657214d188f66499d05c2d73383b9c, type: 3}
 --- !u!4 &547000187
 Transform:
   m_ObjectHideFlags: 0

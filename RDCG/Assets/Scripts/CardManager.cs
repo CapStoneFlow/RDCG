@@ -39,7 +39,7 @@ public class CardManager : MonoBehaviour
         {
             //해당 위치로 카드 이동
             Vector3 enlargePos = new Vector3(card.gameObject.transform.position.x, -5f, -18f);
-            card.MoveTransform(new PRS(enlargePos, Quaternion.identity, new Vector3(20f, 20f, 20f)), false);
+            card.MoveTransform(new PRS(enlargePos, Quaternion.identity, new Vector3(3f, 3f, 3f)), false);
             card.transform.position = enlargePos;
 
 

@@ -24,6 +24,7 @@ public class CardInfo : MonoBehaviour
     public TMP_Text nameTMP;
     public TMP_Text attackTMP;
     public TMP_Text costTMP;
+    public TMP_Text contentTMP;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class CardInfo : MonoBehaviour
         // Card 클래스의 생성자를 사용하여 카드 생성 및 속성 설정
         Card cardComponent = new Card(cardName, cardCost, cardValue, cardContent);
         //카드가 생성 될떄 처음 위치 정보를 저장
-        originPRS = new PRS(this.gameObject.transform.position, Quaternion.identity, new Vector3(13f, 13f, 13f));
+        originPRS = new PRS(this.gameObject.transform.position, Quaternion.identity, new Vector3(2f, 2f, 2f));
         Setup();
     }
 
@@ -46,6 +47,7 @@ public class CardInfo : MonoBehaviour
         nameTMP.text = cardName;
         attackTMP.text = cardValue.ToString();
         costTMP.text = cardCost.ToString();
+        contentTMP.text = cardContent;
     }
     //매개변수 위치로 이동하는 함수
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0f)

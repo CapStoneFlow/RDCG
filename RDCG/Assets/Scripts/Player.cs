@@ -281,7 +281,19 @@ public class Player : MonoBehaviour
         if (Enemy.isBossDead == true) // 보스가 죽었을 때
         {
             isPlayerBoss = true; // 플레이어는 보스를 클리어 된 상태
+            playerHp = playerMaxHp; // 플레이어의 체력을 플레이어의 최대 체력으로 초기화
+            playerCurrentGold = 0; // 플레이어의 현재 가지고 있는 돈을 0으로 초기화
+            playerGainGold = 0; // 플레이어의 얻는 골드를 0으로 초기화
+            isPlayerStage1 = false; // 플레이어의 스테이지1 상태를 클리어 못한 것으로 초기화
+            isPlayerStage2 = false; // 플레이어의 스테이지2 상태를 클리어 못한 것으로 초기화
+            isPlayerBoss = false; // 플레이어의 보스 스테이지 상태를 클리어 못한 것으로 초기화
+            // CurrentDeck 인스턴스가 존재하는지 확인 후 덱 초기화 함수 호출
+            if (CurrentDeck.instance != null)
+            {
+                CurrentDeck.instance.ClearDeck();
+            }
         }
+
     }
 
     // 카드의 효과를 확인하고 적응해주는 함수
