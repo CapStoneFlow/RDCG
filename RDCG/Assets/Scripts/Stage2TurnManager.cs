@@ -42,7 +42,7 @@ public class Stage2TurnManager : MonoBehaviour
     /// 그 과정에서 플레이어 턴 일 경우 플레이어의 코스트를 매턴 마다 얻는 함수도 실행
     /// </summary>
     public void TurnButtonClick2()
-    {
+    {   
         isPlayer2Turn = false; // 현재 플레이어 턴을 종료
         isEnemy2Turn = true; // 적 턴이 실행
 
