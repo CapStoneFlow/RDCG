@@ -48,6 +48,12 @@ public class Player : MonoBehaviour
     // 남은 카드가 없을때 사용할 기본카드
     public GameObject normalCard;
 
+    public Animator animator; //애니메이션 컴포넌트
+
+    public GameObject healParticle; //힐 파티클
+    public GameObject attParticle; //공격 파티클
+    public GameObject costParticle; //코스트 파티클
+
     // Start is called before the first frame update
     void Start()
     {
@@ -299,6 +305,9 @@ public class Player : MonoBehaviour
     // 카드의 효과를 확인하고 적응해주는 함수
     public void CardEffect(CardInfo cardInfo)
     {
+        attParticle.SetActive(false);
+        costParticle.SetActive(false);
+        healParticle.SetActive(false);
         // 효과없이 공격만있는 카드일경우
         if (cardInfo.cardEffect == 0)
         {
@@ -313,7 +322,9 @@ public class Player : MonoBehaviour
             // 적 스크립트의 적 체력을 불러와서
             // 데미지 정보 잘 들어갔는지 확인차 로그
             enemy.enemyHp -= cardDamage;
+            attParticle.SetActive(true); //파티클실행
             Debug.Log("적의 현재 체력은 " + enemy.enemyHp);
+            animator.Play("damage");
         }
         // 1일경우 절반의 확률로 적이 카드값의 두배로 데미지를 입거나 카드값만큼 회복함
         else if (cardInfo.cardEffect == 1)
@@ -325,16 +336,19 @@ public class Player : MonoBehaviour
             {
                 cardDamage *= mulnum;
                 mulnum = 0;
+                animator.Play("damage");
             }
             //rannum에 0이나 1을 넣어 0일시 데미지입고 1일시 회복하도록 설정
             rannum = Random.Range(0, 2);
             if (rannum == 0)
             {
+                attParticle.SetActive(true); //파티클실행
                 cardDamage *= 2;
                 enemy.enemyHp -= cardDamage;
             }
             else if (rannum == 1)
             {
+                healParticle.SetActive(true); //파티클실행
                 enemy.enemyHp += cardDamage;
                 //만약 적체력을 회복하면 최대체력보다 높아질시 체력을 최대체력으로 지정
                 if (enemy.enemyHp > enemy.enemyMaxHp)
@@ -382,7 +396,8 @@ public class Player : MonoBehaviour
                 cardDamage *= mulnum;
                 mulnum = 0;
             }
-            //rannum에 0이나 1을 넣어 0일시 현재코스트 1일시 최대코스트 올려주도록 설정
+            //rannum에 0이나 1을 넣어 0일시 현재코스트 1일시 최대코스트 올려주도록 설정  
+            costParticle.SetActive(true);
             rannum = Random.Range(0, 2);
             if (rannum == 0)
             {
@@ -425,7 +440,9 @@ public class Player : MonoBehaviour
             {
                 cardDamage *= 2;
             }
+            attParticle.SetActive(true); //파티클실행
             enemy.enemyHp -= cardDamage;
+            animator.Play("damage");
         }
     }
 

@@ -25,6 +25,10 @@ public class Enemy : MonoBehaviour
 
     public Player player; // 플레이어 스크립트
 
+    public Animator animator; //애니메이션 컴포넌트
+
+    public GameObject healParticle; //힐 파티클
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +49,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyAttack()
     {
+        animator.Play("attack");
         enemyRandomDamage = Random.Range(1, 11); // 적은 플레이어의 체력을 랜덤적으로 1~10까지 까이게 함
         Player.playerHp -= enemyRandomDamage; // 플레이어의 체력을 적의 랜덤 데미지만큼 까이게 함
         Debug.Log("플레이어의 현재 체력은 " + Player.playerHp);
@@ -55,6 +60,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyAttack2()
     {
+        animator.Play("attack");
         enemyRandomDamage = Random.Range(7, 16); // 적은 플레이어의 체력을 랜덤적으로 7~15까지 까이게 함
         Player.playerHp -= enemyRandomDamage; // 플레이어의 체력을 적의 랜덤 데미지만큼 까이게 함
         Debug.Log("플레이어의 현재 체력은 " + Player.playerHp);
@@ -65,6 +71,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyHeal()
     {
+        healParticle.SetActive(false); //파티클실행
+        healParticle.SetActive(true); //파티클실행
         Debug.Log("적의 체력이 회복되었습니다.");
         enemyHp += 15; // 적의 체력이 15씩 힐이 됨
 
@@ -79,6 +87,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyLastAttack()
     {
+        animator.Play("attack");
         enemyAttackDamage = 30; // 강력한 공격은 30 데미지
         Player.playerHp -= enemyAttackDamage; // 플레이어 체력을 30만큼 까이게 함
         Debug.Log("플레이어의 현재 체력은 " + Player.playerHp);
@@ -102,11 +111,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void Stage1EnemyDeath()
     {
-        isEnemyDead1 = true; // 스테이지 1 적이 죽은 상태를 true
-        player.PlayerClearStage1(); // player가 Stage1을 클리어 했다는 함수 실행
-        Player.playerGainGold += Random.Range(500, 1001); // 플레이어의 획득 골드를 500 ~ 1000까지 랜덤으로 획득
-        Player.playerCurrentGold += Player.playerGainGold; // 플레이어의 현재 골드를 플레이어의 획득 골드만큼 더함
-        SceneManager.LoadScene("Stage Clear1"); // Stage Clear1 씬으로 이동
+        StartCoroutine(DelayedAnimation1("Stage Clear1")); //코루틴실행
     }
 
     /// <summary>
@@ -114,11 +119,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void Stage2EnemyDeath()
     {
-        isEnemyDead2 = true; // 스테이지 2 적이 죽은 상태를 true
-        player.PlayerClearStage2(); // player가 Stage2를 클리어 했다는 함수 실행
-        Player.playerGainGold += Random.Range(1000, 2001); // 플레이어의 획득 골드를 1000 ~ 2000까지 랜덤으로 획득
-        Player.playerCurrentGold += Player.playerGainGold; // 플레이어의 현재 골드를 플레이어의 획득 골드만큼 더함
-        SceneManager.LoadScene("Stage Clear2"); // Stage Clear2 씬으로 이동
+        StartCoroutine(DelayedAnimation2("Stage Clear2")); //코루틴실행
     }
 
     /// <summary>
@@ -126,8 +127,57 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void BossEnemyDeath()
     {
+        StartCoroutine(DelayedAnimation3("Ending")); //코루틴실행
+    }
+
+    // 죽는 애니메이션 보기위한 코루틴
+    IEnumerator DelayedAnimation1(string sceneName)
+    {
+        SetPlayerAndTurnBtnActive(false);  // 실행 전에 player와 turnbtn 비활성화
+        animator.Play("dead");
+        yield return new WaitForSeconds(2f); // 2초 대기
+        SetPlayerAndTurnBtnActive(true); // 실행 후에 player와 turnbtn 다시 활성화
+        isEnemyDead1 = true; // 스테이지 1 적이 죽은 상태를 true
+        player.PlayerClearStage1(); // player가 Stage1을 클리어 했다는 함수 실행
+        Player.playerGainGold += Random.Range(500, 1001); // 플레이어의 획득 골드를 500 ~ 1000까지 랜덤으로 획득
+        Player.playerCurrentGold += Player.playerGainGold; // 플레이어의 현재 골드를 플레이어의 획득 골드만큼 더함
+        SceneManager.LoadScene(sceneName);
+    }
+    IEnumerator DelayedAnimation2(string sceneName)
+    {
+        SetPlayerAndTurnBtnActive(false);  // 실행 전에 player와 turnbtn 비활성화
+        animator.Play("dead");
+        yield return new WaitForSeconds(2f); // 2초 대기
+        SetPlayerAndTurnBtnActive(true); // 실행 후에 player와 turnbtn 다시 활성화
+        isEnemyDead2 = true; // 스테이지 2 적이 죽은 상태를 true
+        player.PlayerClearStage2(); // player가 Stage2를 클리어 했다는 함수 실행
+        Player.playerGainGold += Random.Range(1000, 2001); // 플레이어의 획득 골드를 1000 ~ 2000까지 랜덤으로 획득
+        Player.playerCurrentGold += Player.playerGainGold; // 플레이어의 현재 골드를 플레이어의 획득 골드만큼 더함
+        SceneManager.LoadScene(sceneName);
+    }
+    IEnumerator DelayedAnimation3(string sceneName)
+    {
+        SetPlayerAndTurnBtnActive(false);  // 실행 전에 player와 turnbtn 비활성화
+        animator.Play("dead");
+        yield return new WaitForSeconds(2f); // 2초 대기
+        SetPlayerAndTurnBtnActive(true); // 실행 후에 player와 turnbtn 다시 활성화
         isBossDead = true; // 보스가 죽은 상태를 true
         player.PlayerClearBoss(); // player가 Stage1을 클리어 했다는 함수 실행
-        SceneManager.LoadScene("Ending"); // 엔딩 씬으로 이동
+        SceneManager.LoadScene(sceneName);
     }
+
+    // 죽는애니메이션 실행중 아무것도 할수없도록 설정해주는 함수
+    private void SetPlayerAndTurnBtnActive(bool isActive)
+    {
+        // player 비활성화
+        player.gameObject.SetActive(isActive);
+
+        // TurnBtn 태그를 가진 모든 게임 오브젝트를 찾아서 비활성화
+        GameObject[] turnBtnObjects = GameObject.FindGameObjectsWithTag("TurnBtn");
+        foreach (GameObject turnBtnObject in turnBtnObjects)
+        {
+            turnBtnObject.SetActive(isActive);
+        }
+    }
+
 }
