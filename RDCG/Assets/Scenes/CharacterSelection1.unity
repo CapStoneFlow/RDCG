@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 348449587}
         m_TargetAssemblyTypeName: Selection, Assembly-CSharp
-        m_MethodName: CharacterSelection1ClickChar1Btn
+        m_MethodName: CharacterSelection1ClickChar2Btn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

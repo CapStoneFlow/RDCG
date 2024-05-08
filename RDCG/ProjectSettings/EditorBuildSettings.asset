@@ -15,20 +15,23 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterSelection2.unity
     guid: 8958935b013bf7949a90ca9ce463f967
   - enabled: 1
+    path: Assets/Scenes/CharacterSelection3.unity
+    guid: ba6f08e38672584489797159bfef1ec0
+  - enabled: 1
     path: Assets/Scenes/Stage.unity
     guid: 0c762f8d85fea8b46a3ce2fd048e5501
+  - enabled: 1
+    path: Assets/Scenes/Play.unity
+    guid: 089f5c347acc44e4bba695ebb58f7a8f
   - enabled: 1
     path: Assets/Scenes/Stage Clear1.unity
     guid: ea3f94e1f46e7ef4e9f62182cc2b3b9d
   - enabled: 1
-    path: Assets/Asset/Skill Effect/Textures/Death.unity
+    path: Assets/Scenes/Death.unity
     guid: a4575e7d503d6b54a86563cf17723c1b
   - enabled: 1
     path: Assets/Scenes/CardTest.unity
     guid: ee052b2308f19134f96a42338d609bb6
-  - enabled: 1
-    path: Assets/Scenes/Play.unity
-    guid: 089f5c347acc44e4bba695ebb58f7a8f
   - enabled: 1
     path: Assets/Scenes/Store.unity
     guid: e96afea98a0a7064e9a8cb103542cbc3

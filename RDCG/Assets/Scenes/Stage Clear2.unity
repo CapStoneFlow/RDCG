@@ -285,7 +285,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 717772128}
         m_TargetAssemblyTypeName: Selection, Assembly-CSharp
         m_MethodName: StageClickBtn
         m_Mode: 1
@@ -957,7 +957,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 13bf411750c55974da4ed91f6958f6d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17fe7608aacd6f7498bca4cd58e070b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

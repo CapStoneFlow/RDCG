@@ -45,7 +45,7 @@ public class CardInfo : MonoBehaviour
     public void Setup()
     {
         nameTMP.text = cardName;
-        attackTMP.text = cardValue.ToString();
+        //attackTMP.text = cardValue.ToString();
         costTMP.text = cardCost.ToString();
         contentTMP.text = cardContent;
     }
