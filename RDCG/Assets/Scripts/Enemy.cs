@@ -29,6 +29,11 @@ public class Enemy : MonoBehaviour
 
     public GameObject healParticle; //힐 파티클
 
+    public AudioClip hitclip; //맞는효과음
+    public AudioClip healclip; //힐 효과음
+
+    public Transform cam; // 카메라 받아오기
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +54,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyAttack()
     {
+        StartCoroutine(Shake());
+        GetComponent<AudioSource>().PlayOneShot(hitclip);
         animator.Play("attack");
         enemyRandomDamage = Random.Range(1, 11); // 적은 플레이어의 체력을 랜덤적으로 1~10까지 까이게 함
         Player.playerHp -= enemyRandomDamage; // 플레이어의 체력을 적의 랜덤 데미지만큼 까이게 함
@@ -60,6 +67,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyAttack2()
     {
+        StartCoroutine(Shake());
+        GetComponent<AudioSource>().PlayOneShot(hitclip);
         animator.Play("attack");
         enemyRandomDamage = Random.Range(7, 16); // 적은 플레이어의 체력을 랜덤적으로 7~15까지 까이게 함
         Player.playerHp -= enemyRandomDamage; // 플레이어의 체력을 적의 랜덤 데미지만큼 까이게 함
@@ -71,6 +80,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyHeal()
     {
+        GetComponent<AudioSource>().PlayOneShot(healclip);
         healParticle.SetActive(false); //파티클실행
         healParticle.SetActive(true); //파티클실행
         Debug.Log("적의 체력이 회복되었습니다.");
@@ -87,6 +97,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void EnemyLastAttack()
     {
+        StartCoroutine(Shake());
+        GetComponent<AudioSource>().PlayOneShot(hitclip);
         animator.Play("attack");
         enemyAttackDamage = 30; // 강력한 공격은 30 데미지
         Player.playerHp -= enemyAttackDamage; // 플레이어 체력을 30만큼 까이게 함
@@ -178,6 +190,22 @@ public class Enemy : MonoBehaviour
         {
             turnBtnObject.SetActive(isActive);
         }
+    }
+
+    // 플레이어 맞을시 카메라 흔들리는 함수 구현
+    IEnumerator Shake()
+    {
+        //원래 위치 저장
+        Vector3 oriposition = cam.position;
+        float elapsed = 0.0f;
+        // 1초가 지나면 반복문 종료
+        while (elapsed < 0.5f)
+        {
+            cam.position = oriposition + Random.insideUnitSphere * 0.5f;
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+        cam.localPosition = oriposition;    
     }
 
 }

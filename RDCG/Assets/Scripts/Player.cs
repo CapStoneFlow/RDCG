@@ -54,6 +54,11 @@ public class Player : MonoBehaviour
     public GameObject attParticle; //공격 파티클
     public GameObject costParticle; //코스트 파티클
 
+    public AudioClip hitclip; //맞는효과음
+    public AudioClip costclip; //코스트효과음
+    public AudioClip healclip; //힐 효과음
+
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +94,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         playerHpText.text = "HP : " + playerHp.ToString(); // HP 텍스트를 실시간으로 변경
-        playerCostText.text = "Cost : " + playerCost.ToString() + " / " + playerTurnCount.ToString(); // Cost 텍스트를 실시간으로 변경
+        playerCostText.text = playerCost.ToString() + " / " + playerTurnCount.ToString(); // Cost 텍스트를 실시간으로 변경
         playerHpBar.value = playerHp / playerMaxHp; // HP 슬라이더 바 현재 체력 비례하여 최대 체력으로 나눠 업데이트
 
         // 키보드 입력을 감지하여 해당 위치를 매겨변수로 사용
@@ -325,6 +330,7 @@ public class Player : MonoBehaviour
             attParticle.SetActive(true); //파티클실행
             Debug.Log("적의 현재 체력은 " + enemy.enemyHp);
             animator.Play("damage");
+            GetComponent<AudioSource>().PlayOneShot(hitclip);
         }
         // 1일경우 절반의 확률로 적이 카드값의 두배로 데미지를 입거나 카드값만큼 회복함
         else if (cardInfo.cardEffect == 1)
@@ -336,7 +342,7 @@ public class Player : MonoBehaviour
             {
                 cardDamage *= mulnum;
                 mulnum = 0;
-                animator.Play("damage");
+               
             }
             //rannum에 0이나 1을 넣어 0일시 데미지입고 1일시 회복하도록 설정
             rannum = Random.Range(0, 2);
@@ -345,11 +351,14 @@ public class Player : MonoBehaviour
                 attParticle.SetActive(true); //파티클실행
                 cardDamage *= 2;
                 enemy.enemyHp -= cardDamage;
+                animator.Play("damage");
+                GetComponent<AudioSource>().PlayOneShot(hitclip);
             }
             else if (rannum == 1)
             {
                 healParticle.SetActive(true); //파티클실행
                 enemy.enemyHp += cardDamage;
+                GetComponent<AudioSource>().PlayOneShot(healclip);
                 //만약 적체력을 회복하면 최대체력보다 높아질시 체력을 최대체력으로 지정
                 if (enemy.enemyHp > enemy.enemyMaxHp)
                 {
@@ -372,10 +381,12 @@ public class Player : MonoBehaviour
             rannum = Random.Range(0, 2);
             if (rannum == 0)
             {
+                GetComponent<AudioSource>().PlayOneShot(hitclip);
                 playerHp -= cardDamage;
             }
             else if (rannum == 1)
             {
+                GetComponent<AudioSource>().PlayOneShot(healclip);
                 cardDamage *= 2;
                 playerHp += cardDamage;
                 //만약 플레이어체력을 회복하면 최대체력보다 높아질시 체력을 최대체력으로 지정
@@ -388,6 +399,7 @@ public class Player : MonoBehaviour
         // 3일경우 카드값만큼 절반의 확률로 이번턴에 사용할코스트를 올려주거나 플레이어 최대코스트를 올려줍니다.
         else if(cardInfo.cardEffect == 3)
         {
+            GetComponent<AudioSource>().PlayOneShot(costclip);
             // cardDamage에 cardValue값 받아옴
             cardDamage = cardInfo.cardValue;
             // mulnum이 0이아닐시 cardDamage는 mulnum값만큼 배로 들어감
@@ -422,6 +434,7 @@ public class Player : MonoBehaviour
         // 4일경우 다음 카드 사용시 효과 카드값만큼 배로 들어감
         else if( cardInfo.cardEffect == 4)
         {
+            GetComponent<AudioSource>().PlayOneShot(costclip);
             mulnum = cardInfo.cardValue;
         }
         // 5일경우 만약 카드 사용시 남은코스트가 0이라면 데미지 두배로 들어감
@@ -440,6 +453,7 @@ public class Player : MonoBehaviour
             {
                 cardDamage *= 2;
             }
+            GetComponent<AudioSource>().PlayOneShot(hitclip);
             attParticle.SetActive(true); //파티클실행
             enemy.enemyHp -= cardDamage;
             animator.Play("damage");
