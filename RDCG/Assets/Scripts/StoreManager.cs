@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class StoreManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class StoreManager : MonoBehaviour
     private int cardRecoverCost = 200; // 카드 사는데 필요한 비용
 
     public Deck deck; // Deck 스크립트에 대한 참조 추가
+
+    public Popup popupWindowCard; // 카드 팝업창 오브젝트
+    public Popup popupWindowHp; // Hp 팝업창 오브젝트
 
     // Start is called before the first frame update
     void Start()
@@ -49,12 +53,18 @@ public class StoreManager : MonoBehaviour
     /// </summary>
     public void PlayerHPBuyButton()
     {
+        var seq = DOTween.Sequence();//아래 세개의 스케일 변경을 순서대로 실행시키기 위한 함수
+
         if (playerHp == maxPlayerHp)
         {
             Debug.Log("플레이어의 체력이 최대입니다.");
         }
         else if (playerHp < maxPlayerHp && playerMoney >= hpRecoveryCost)
         {
+            seq.Play().OnComplete(() => {
+                //OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면 { } 안에 있는 코드가 수행된다는 의미
+                popupWindowHp.Show();
+            });
             playerMoney -= hpRecoveryCost;
             playerHp = Mathf.Min(playerHp + hpRecoveryAmount, maxPlayerHp);
             Player.SetPlayerMoney(playerMoney); // 플레이어스크립트의 돈을 최신화
@@ -71,14 +81,23 @@ public class StoreManager : MonoBehaviour
     /// </summary>
     public void BuyCardButton()
     {
+        var seq = DOTween.Sequence();//아래 세개의 스케일 변경을 순서대로 실행시키기 위한 함수
+
         // 가진돈이 전체 카드 구매 비용보단 많을경우 
         if(playerMoney >= cardRecoverCost)
         {
+            
+            seq.Play().OnComplete(() => {
+                //OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면 { } 안에 있는 코드가 수행된다는 의미
+                popupWindowCard.Show();
+            });
             playerMoney -= cardRecoverCost; //돈을 카드비용만큼 줄임
             Player.SetPlayerMoney(playerMoney); // 플레이어스크립트의 돈을 최신화
 
             // 현재덱에 랜덤 카드 추가
             deck.AddRandomCardToDeck();
+
+
         }
         else
         {
