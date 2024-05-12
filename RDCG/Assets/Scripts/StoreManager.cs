@@ -19,7 +19,9 @@ public class StoreManager : MonoBehaviour
     public Deck deck; // Deck 스크립트에 대한 참조 추가
 
     public Popup popupWindowCard; // 카드 팝업창 오브젝트
+    public Popup popupWindowMoney; // 돈부족 오브젝트
     public Popup popupWindowHp; // Hp 팝업창 오브젝트
+    public Popup popupWindowHpFull; // Hp Full 팝업창 오브젝트
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +59,10 @@ public class StoreManager : MonoBehaviour
 
         if (playerHp == maxPlayerHp)
         {
+            seq.Play().OnComplete(() => {
+                //OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면 { } 안에 있는 코드가 수행된다는 의미
+                popupWindowHpFull.Show();
+            });
             Debug.Log("플레이어의 체력이 최대입니다.");
         }
         else if (playerHp < maxPlayerHp && playerMoney >= hpRecoveryCost)
@@ -72,6 +78,10 @@ public class StoreManager : MonoBehaviour
         }
         else
         {
+            seq.Play().OnComplete(() => {
+                //OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면 { } 안에 있는 코드가 수행된다는 의미
+                popupWindowMoney.Show();
+            });
             Debug.Log("현재 플레이어는 체력을 살 수 없습니다.");
         }
     }
@@ -101,6 +111,10 @@ public class StoreManager : MonoBehaviour
         }
         else
         {
+            seq.Play().OnComplete(() => {
+                //OnComplete 는 seq 에 설정한 애니메이션의 플레이가 완료되면 { } 안에 있는 코드가 수행된다는 의미
+                popupWindowMoney.Show();
+            });
             Debug.Log("돈이 부족합니다.");
         }
     }
